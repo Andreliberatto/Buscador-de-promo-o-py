@@ -6,26 +6,21 @@ from PIL import Image, ImageTk
 import webbrowser
 from time import sleep
 
-# Nome do Desenvolvedor
 DESENVOLVEDOR = "Desenvolvido por André Amorim Liberatto"
 
-# Função principal para a criação do app
 def criar_app():
     global janela, loja_selecionada, mostrar_somente_promocoes, resultados_por_pagina, pagina_atual
 
-    # Configuração da Interface Gráfica
     janela = tk.Tk()
     janela.title("Comparador de Preços")
     janela.geometry("1000x700")
     janela.configure(bg="#f7f7f7")
 
-    # Variáveis globais
     loja_selecionada = tk.StringVar(value="Mercado Livre")
     mostrar_somente_promocoes = tk.BooleanVar(value=False)
     pagina_atual = 0
     resultados_por_pagina = 10  # Defina o número de resultados por página
 
-    # Funções para buscar e exibir resultados
     def buscar_produtos_mercadolivre(nome_produto):
         """
         Busca produtos no Mercado Livre usando sua API.
@@ -125,7 +120,6 @@ def criar_app():
         Realiza a busca pelo produto digitado no campo de entrada.
         """
         global resultados_atual, pagina_atual
-        # Exibe uma mensagem de carregamento
         label_loading.pack()
         janela.update_idletasks()  # Atualiza a interface gráfica para exibir o carregamento
 
@@ -134,8 +128,6 @@ def criar_app():
             messagebox.showwarning("Atenção", "Digite o nome de um produto para pesquisar.")
             label_loading.pack_forget()
             return
-
-        # Busca os resultados
         resultados_atual = buscar_produtos_mercadolivre(nome_produto)
         pagina_atual = 0
         sleep(1)  # Simula o tempo de carregamento
@@ -159,9 +151,8 @@ def criar_app():
         if pagina_atual > 0:
             pagina_atual -= 1
         atualizar_resultados()
-
-    # Interface de busca e filtros
-    frame_busca = tk.Frame(janela, padx=10, pady=10, bg="#f7f7f7")
+    frame_busca = tk.Frame(janela, padx=10, p
+                           ady=10, bg="#f7f7f7")
     frame_busca.pack(fill=tk.X)
 
     label_produto = tk.Label(frame_busca, text="Produto:", font=("Arial", 14), bg="#f7f7f7")
@@ -186,7 +177,7 @@ def criar_app():
     label_loading = tk.Label(janela, text="Buscando...", font=("Arial", 14, "italic"), bg="#f7f7f7", fg="#999")
     label_loading.pack_forget()  # Inicialmente invisível
 
-    # Frame com barra de rolagem para os resultados
+
     frame_resultados = tk.Frame(janela, padx=10, pady=10, bg="#ffffff")
     canvas_resultados = tk.Canvas(frame_resultados)
     scrollbar = tk.Scrollbar(frame_resultados, orient="vertical", command=canvas_resultados.yview)
@@ -199,7 +190,7 @@ def criar_app():
     
     frame_resultados.pack(fill=tk.BOTH, expand=True)
 
-    # Navegação para próximo/anteior
+
     frame_navegacao = tk.Frame(janela, padx=10, pady=10, bg="#f7f7f7")
     frame_navegacao.pack(fill=tk.X)
 
@@ -209,11 +200,11 @@ def criar_app():
     botao_proximo = tk.Button(frame_navegacao, text="Próximo", command=proxima_pagina, bg="#0078d7", fg="white", font=("Arial", 12, "bold"))
     botao_proximo.pack(side=tk.RIGHT, padx=5)
 
-    # Rodapé com informações
+
     label_desenvolvedor = tk.Label(janela, text=DESENVOLVEDOR, font=("Arial", 10), bg="#f7f7f7", anchor="e")
     label_desenvolvedor.pack(fill=tk.X, pady=5)
 
     janela.mainloop()
 
-# Chama a função para iniciar o aplicativo
+
 criar_app()
